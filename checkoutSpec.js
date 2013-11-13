@@ -30,10 +30,18 @@ describe("total", function() {
         expect(cart.total()).toEqual(total);
     });
 
-//    it("should be 300 after adding three As", function() {
-//        cart.addItem("A");
-//        cart.addItem("A");
-//        cart.addItem("A");
-//        expect(cart.total()).toEqual(300);
-//    })
+    it("should be 400 with two items B", function(){
+        cart.addItems(["B", "B"]);
+        expect(cart.total()).toEqual(400);
+    });
+
+    it("should be 300 after adding three As with package size three", function() {
+        cart.addItems(["A", "A", "A"]);
+        expect(cart.total()).toEqual(300);
+    });
+
+    xit("should be 800 after adding four Bs with package size four", function() {
+        cart.addItems(["B", "B", "B", "B"]);
+        expect(cart.total()).toEqual(800);
+    });
 });

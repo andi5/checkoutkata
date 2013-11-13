@@ -1,30 +1,45 @@
 var Cart = function Cart() {
-    var total = 0;
+    //var total = 0;
 
-//    var items = {
-//        "A": 0,
-//        "B": 0,
-//        "C": 0,
-//        "D": 0
-//    };
+    var itemCount = {
+        "A": 0,
+        "B": 0
+    };
 
-    var itemMatrix = {
+    var priceMatrix = {
         "A" : 150,
         "B" : 200
     };
 
-//    var reducedItemMatrix = {
-//        "A": 100
-//    };
+    var discountPriceMatrix = {
+        "A" : 100,
+        "B" : 150
+    };
 
     return {
         total: function () {
-            return total;
+            var sum = 0;
+            for (var key in itemCount) {
+                var numberOfPackages = Math.floor(itemCount[key] / 3);
+                var normalItems = itemCount[key] % 3;
+
+                var packagePrice = numberOfPackages * discountPriceMatrix[key] * 3;
+                var normalPrice = normalItems * priceMatrix[key];
+
+                sum += packagePrice + normalPrice;
+            }
+            return sum;
         },
 
         addItem: function (item) {
-            var price = itemMatrix[item] ? itemMatrix[item] : 0;
-            total += price;
+            if (!priceMatrix[item]) return;
+            itemCount[item] += 1;
+        },
+
+        addItems: function(items){
+            for (var i = 0; i < items.length; i++){
+                this.addItem(items[i]);
+            }
         }
     }
 };
