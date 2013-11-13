@@ -20,8 +20,7 @@ var Cart = function Cart() {
             for(var key in items) {
                 var numberOfReducedPackages = Math.floor(items[key] / 3);
                 var reducedSinglePrice = reducedItemMatrix[key];
-                var priceOfReducedItems = reducedSinglePrice * numberOfReducedPackages;
-                if (!priceOfReducedItems) continue;
+                var priceOfReducedItems = reducedSinglePrice * numberOfReducedPackages * 3;
                 sum += priceOfReducedItems;
 
                 var unreducedSinglePrice = itemMatrix[key];
@@ -33,6 +32,7 @@ var Cart = function Cart() {
         },
 
         addItem: function (item) {
+            if (!itemMatrix[item]) return;
             items[item] += 1
         }
     }
